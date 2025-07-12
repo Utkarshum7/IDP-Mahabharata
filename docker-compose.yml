@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  vyasa-vision:
+    build: .
+    ports:
+      - "8080:80"
+    container_name: vyasa-vision-web
+    restart: unless-stopped
+    volumes:
+      - ./images:/usr/share/nginx/html/images:ro
+      - ./audio:/usr/share/nginx/html/audio:ro 
