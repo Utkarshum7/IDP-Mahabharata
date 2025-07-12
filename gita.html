@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahabharata - Listen to Gita</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #f4e4bc, #d9c2a6);
+      font-family: 'Cinzel', serif;
+    }
+    .nav-bg {
+      background: linear-gradient(to right, #8b5a2b, #a67c00);
+    }
+    .audio-card {
+      background: #f5e8c7;
+      border: 2px solid #8b5a2b;
+      transition: transform 0.3s ease;
+    }
+    .audio-card:hover {
+      transform: translateY(-5px);
+    }
+    .lang-btn {
+      background: #8b5a2b;
+      transition: background 0.3s ease;
+    }
+    .lang-btn:hover {
+      background: #a67c00;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="nav-bg text-white p-6 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold tracking-wide">Mahabharata</h1>
+      <ul class="flex space-x-6 text-lg">
+        <li><a href="index.html" class="hover:text-yellow-300 transition duration-300">Home</a></li>
+        <li><a href="crossword.html" class="hover:text-yellow-300 transition duration-300">Crossword</a></li>
+        <li><a href="history.html" class="hover:text-yellow-300 transition duration-300">Learn History</a></li>
+        <li><a href="gita.html" class="hover:text-yellow-300 transition duration-300">Listen to Gita</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container mx-auto p-8">
+    <h2 class="text-4xl font-bold text-gray-800 mb-4 text-center">Listen to the Bhagavad Gita</h2>
+    <p class="text-lg text-gray-600 mb-8 text-center">Select a language and chapter to hear sacred verses.</p>
+    <div class="audio-card p-8 rounded-lg shadow-lg mb-6">
+      <div class="h-48 mb-6">
+        <!-- Add Gita image here -->
+        <!-- Format: <img src="path/to/gita-image.jpg" alt="Bhagavad Gita" class="w-full h-full object-cover rounded"> -->
+        <!-- Recommended: JPEG/PNG, 800x400 pixels -->
+      </div>
+      <h3 class="text-2xl font-semibold text-gray-800 mb-4">Select Language</h3>
+      <div class="flex flex-wrap gap-4 mb-6">
+        <button onclick="loadAudio('english')" class="lang-btn text-white px-6 py-3 rounded">English</button>
+        <button onclick="loadAudio('hindi')" class="lang-btn text-white px-6 py-3 rounded">Hindi</button>
+        <button onclick="loadAudio('kannada')" class="lang-btn text-white px-6 py-3 rounded">Kannada</button>
+      </div>
+      <div id="audio-player" class="bg-[#f5e8c7] p-4 rounded">
+        <p class="text-gray-600">Select a language to load audio.</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function loadAudio(language) {
+      const playerDiv = document.getElementById('audio-player');
+      playerDiv.innerHTML = `
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">${language.charAt(0).toUpperCase() + language.slice(1)} Audio</h3>
+        <audio controls class="w-full">
+          <source src="audio/${language}_chapter1_verse1.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+        <p class="mt-2 text-gray-600">Playing Chapter 1, Verse 1 in ${language}.</p>
+      `;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahabharata - Interactive Map</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: 'Cinzel', serif;
+      position: relative;
+      overflow-x: hidden;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      background-image: url('images/story%201%20image.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      opacity: 0.2;
+      z-index: -1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      color: #000;
+      padding: 20px;
+    }
+
+    .petals {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .petal {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #f4e4bc;
+      opacity: 0.3;
+      border-radius: 50%;
+      animation: fall 8s linear infinite;
+    }
+
+    .petals div:nth-child(1) {
+      left: 20%;
+      animation-delay: 0s;
+    }
+
+    .petals div:nth-child(2) {
+      left: 40%;
+      animation-delay: 2s;
+    }
+
+    .petals div:nth-child(3) {
+      left: 60%;
+      animation-delay: 4s;
+    }
+
+    .petals div:nth-child(4) {
+      left: 80%;
+      animation-delay: 6s;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.1;
+      }
+    }
+
+    .nav-bg {
+      background: linear-gradient(to right, #8b5a2b, #a67c00);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    #map {
+      height: 600px;
+      border: 2px solid #6a431f;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .dropdown-menu {
+      display: none;
+    }
+
+    .dropdown-menu.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="petals">
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+  </div>
+  <nav class="nav-bg text-white p-6 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold tracking-wide">Mahabharata</h1>
+      <div class="relative">
+        <button id="dropdown-toggle" class="flex items-center text-lg hover:text-yellow-300 transition duration-300 focus:outline-none">
+          <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+          </svg>
+          Menu
+        </button>
+        <ul id="dropdown-menu" class="dropdown-menu absolute right-0 mt-2 w-48 bg-yellow-100 text-gray-800 rounded-lg shadow-lg z-50">
+          <li class="border-b border-yellow-800">
+            <a href="index.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l10 10h-6v8h-8v-8H2L12 2z"/>
+              </svg>
+              Home
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="crossword.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M5 3h14v14h-5v5H5v-5H0V3h5zm2 2v10h10V5H7zm2 2h6v6H9V7z"/>
+              </svg>
+              Crossword
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="history.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-7 17h2v-2a8 8 0 0 1 10-7.46V13h2V9.54A10 10 0 0 0 12 2zm0 2a1 1 0 0 1 1 1v5h3l-4 4-4-4h3V5a1 1 0 0 1 1-1z"/>
+              </svg>
+              Learn History
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="gita.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 3v6l5 3-1 2-6-3V7h2z"/>
+              </svg>
+              Gita Verse Explorer
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="map.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-10 10c0 5.5 4.5 10 10 10s10-4.5 10-10A10 10 0 0 0 12 20zm0 2c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8zm0 2a1 1 0 0 0-1 1v4l3 2 1-1-3-2V7a1 1 0 0 0-1-1z"/>
+              </svg>
+              Interactive Map
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="quiz.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm1 3h-2v2h2V7zm0 4h-2v6h2v-6z"/>
+              </svg>
+              Quiz
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="mythology.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-10 10c0 5.5 4.5 10 10 10s10-4.5 10-10A10 10 0 0 0 12 2zm0 2c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8zm0 2a1 1 0 0 0-1 1v4h4v-4a1 1 0 0 0-1-1z"/>
+              </svg>
+              Mythology vs. History
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="timeline.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-10 10c0 5.5 4.5 10 10 10s10-4.5 10-10A10 10 0 0 0 12 2zm0 2c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8zm0 2v4h4v2h-4v4h-2v-4H6v-2h4V6h2z"/>
+              </svg>
+              Timeline
+            </a>
+          </li>
+          <li>
+            <a href="characters.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-10 10c0 5.5 4.5 10 10 10s10-4.5 10-10A10 10 0 0 0 12 2zm0 2c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8zm0 2a3 3 0 0 0-3 3c0 1.7 1.3 3 3 3s3-1.3 3-3-1.3-3-3-3zm0 8c-2.2 0-4 1.8-4 4h8c0-2.2-1.8-4-4-4z"/>
+              </svg>
+              Characters
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container mx-auto p-8 content">
+    <h2 class="text-4xl font-bold text-center text-white drop-shadow-lg mb-6">The Interactive Map of Mahabharata</h2>
+    <p class="text-lg text-center text-white font-bold drop-shadow-lg mb-8">Explore key locations from the epic, including kingdoms, pilgrimage sites, and places of exile.</p>
+    <div id="map"></div>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Initialize the map
+    var map = L.map('map').setView([23.5, 78.0], 5); // Centered on India
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Kingdoms & Capitals
+    L.marker([29.9457, 78.1642]).addTo(map)
+      .bindPopup(`
+        <b>Hastinapura (Uttar Pradesh)</b><br>
+        Capital of the Kauravas and Pandavas. Located near modern-day Meerut.<br>
+        <img src="https://via.placeholder.com/300x200?text=Hastinapura" alt="Hastinapura" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([28.6139, 77.2090]).addTo(map)
+      .bindPopup(`
+        <b>Indraprastha (Delhi)</b><br>
+        Capital built by the Pandavas, believed to be where present-day Delhi stands.<br>
+        <img src="https://via.placeholder.com/300x200?text=Indraprastha" alt="Indraprastha" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([22.3072, 70.8022]).addTo(map)
+      .bindPopup(`
+        <b>Dwarka (Gujarat)</b><br>
+        Lord Krishna's kingdom. Submerged city remains found off the coast of Gujarat.<br>
+        <img src="https://via.placeholder.com/300x200?text=Dwarka" alt="Dwarka" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([29.9695, 76.8783]).addTo(map)
+      .bindPopup(`
+        <b>Kurukshetra (Haryana)</b><br>
+        Battlefield of the Mahabharata war. Sacred pilgrimage site even today.<br>
+        <img src="https://via.placeholder.com/300x200?text=Kurukshetra" alt="Kurukshetra" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([27.4290, 80.7790]).addTo(map)
+      .bindPopup(`
+        <b>Panchala (Uttar Pradesh)</b><br>
+        Draupadi’s father Drupada’s kingdom. Near modern-day Bareilly and Farrukhabad.<br>
+        <img src="https://via.placeholder.com/300x200?text=Panchala" alt="Panchala" style="width: 300px; height: 200px;">
+      `);
+
+    // Pilgrimage & Holy Sites
+    L.marker([27.4240, 77.6651]).addTo(map)
+      .bindPopup(`
+        <b>Vrindavan (Uttar Pradesh)</b><br>
+        Krishna’s childhood place, central to his early life stories.<br>
+        <img src="https://via.placeholder.com/300x200?text=Vrindavan" alt="Vrindavan" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([27.4950, 77.6737]).addTo(map)
+      .bindPopup(`
+        <b>Mathura (Uttar Pradesh)</b><br>
+        Krishna’s birthplace, central to his early life stories.<br>
+        <img src="https://via.placeholder.com/300x200?text=Mathura" alt="Mathura" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([9.2876, 79.3129]).addTo(map)
+      .bindPopup(`
+        <b>Rameswaram (Tamil Nadu)</b><br>
+        Believed to be visited by the Pandavas during exile, also associated with Ramayana.<br>
+        <img src="https://via.placeholder.com/300x200?text=Rameswaram" alt="Rameswaram" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([30.7353, 79.0669]).addTo(map)
+      .bindPopup(`
+        <b>Badrinath (Uttarakhand)</b><br>
+        Visited by the Pandavas on their final journey.<br>
+        <img src="https://via.placeholder.com/300x200?text=Badrinath" alt="Badrinath" style="width: 300px; height: 200px;">
+      `);
+
+    // Exile & Wanderings
+    L.marker([29.0588, 76.0856]).addTo(map)
+      .bindPopup(`
+        <b>Kamyaka Forest (Punjab/Rajasthan)</b><br>
+        One of the forests where the Pandavas stayed during exile.<br>
+        <img src="https://via.placeholder.com/300x200?text=Kamyaka+Forest" alt="Kamyaka Forest" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([23.1645, 79.8864]).addTo(map)
+      .bindPopup(`
+        <b>Dwaitavana (Madhya Pradesh)</b><br>
+        Another forest location for the Pandavas during exile.<br>
+        <img src="https://via.placeholder.com/300x200?text=Dwaitavana" alt="Dwaitavana" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([30.3165, 78.0322]).addTo(map)
+      .bindPopup(`
+        <b>Himalayas (Uttarakhand/Himachal)</b><br>
+        Pandavas passed through these ranges on their Mahaprasthan (final journey).<br>
+        <img src="https://via.placeholder.com/300x200?text=Himalayas" alt="Himalayas" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([30.8943, 77.0967]).addTo(map)
+      .bindPopup(`
+        <b>Gandhamadana (Himalayan Region)</b><br>
+        Mountain region crossed by the Pandavas seeking penance and spiritual wisdom.<br>
+        <img src="https://via.placeholder.com/300x200?text=Gandhamadana" alt="Gandhamadana" style="width: 300px; height: 200px;">
+      `);
+
+    // Other Notable Locations
+    L.marker([24.6951, 93.9390]).addTo(map)
+      .bindPopup(`
+        <b>Manipur (Northeast India)</b><br>
+        Arjuna married Princess Chitrangada here.<br>
+        <img src="https://via.placeholder.com/300x200?text=Manipur" alt="Manipur" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([27.4360, 75.9850]).addTo(map)
+      .bindPopup(`
+        <b>Viratnagar (Rajasthan)</b><br>
+        Kingdom of King Virata where Pandavas stayed incognito.<br>
+        <img src="https://via.placeholder.com/300x200?text=Viratnagar" alt="Viratnagar" style="width: 300px; height: 200px;">
+      `);
+
+    L.marker([23.8388, 75.5577]).addTo(map)
+      .bindPopup(`
+        <b>Ujjain (Madhya Pradesh)</b><br>
+        Associated with Krishna and his journeys.<br>
+        <img src="https://via.placeholder.com/300x200?text=Ujjain" alt="Ujjain" style="width: 300px; height: 200px;">
+      `);
+
+    // Dropdown menu toggle
+    const dropdownToggle = document.getElementById('dropdown-toggle');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+
+    dropdownToggle.addEventListener('click', () => {
+      dropdownMenu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

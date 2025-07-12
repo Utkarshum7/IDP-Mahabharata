@@ -1,0 +1,171 @@
+body {
+  background: linear-gradient(to bottom, #f4e4bc, #d9c2a6);
+  font-family: 'Cinzel', serif;
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+.nav-bg {
+  background: linear-gradient(to right, #8b5a2b, #a67c00);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+.card {
+  background: #f5e8c7;
+  border: 2px solid #8b5a2b;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+.header {
+  background-image: url('https://via.placeholder.com/1200x600?text=Ancient+Monument+Banner');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.petals {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+.petal {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #f4e4bc;
+  opacity: 0.3;
+  border-radius: 50%;
+  animation: fall 8s linear infinite;
+}
+.petals div:nth-child(1) {
+  left: 20%;
+  animation-delay: 0s;
+}
+.petals div:nth-child(2) {
+  left: 40%;
+  animation-delay: 2s;
+}
+.petals div:nth-child(3) {
+  left: 60%;
+  animation-delay: 4s;
+}
+.petals div:nth-child(4) {
+  left: 80%;
+  animation-delay: 6s;
+}
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0.1;
+  }
+}
+.clouds {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -2;
+}
+.cloud {
+  position: absolute;
+  width: 200px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  animation: drift 40s linear infinite;
+}
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+.cloud::before {
+  width: 80px;
+  height: 80px;
+  top: -40px;
+  left: 40px;
+}
+.cloud::after {
+  width: 60px;
+  height: 60px;
+  top: -20px;
+  left: 100px;
+}
+.clouds div:nth-child(1) {
+  top: 20%;
+  animation-delay: 0s;
+}
+.clouds div:nth-child(2) {
+  top: 40%;
+  animation-delay: 20s;
+}
+@keyframes drift {
+  0% {
+    transform: translateX(-20vw);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateX(120vw);
+    opacity: 0.2;
+  }
+}
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -3;
+}
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #a67c00;
+  border-radius: 50%;
+  animation: glow 5s ease-in-out infinite;
+}
+.particles div:nth-child(1) {
+  left: 15%;
+  top: 30%;
+  animation-delay: 0s;
+}
+.particles div:nth-child(2) {
+  left: 35%;
+  top: 50%;
+  animation-delay: 1s;
+}
+.particles div:nth-child(3) {
+  left: 65%;
+  top: 25%;
+  animation-delay: 2s;
+}
+.particles div:nth-child(4) {
+  left: 85%;
+  top: 60%;
+  animation-delay: 3s;
+}
+@keyframes glow {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.5);
+  }
+}

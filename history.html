@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahabharata - Learn History</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cinzel', serif;
+      position: relative;
+      overflow-x: hidden;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #f4e4bc, #d9c2a6);
+      background-image: url('images/story%201%20image.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      opacity: 0.2;
+      z-index: -1;
+    }
+
+    .nav-bg {
+      background: linear-gradient(to right, #8b5a2b, #a67c00);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .petals {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .petal {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #f4e4bc;
+      opacity: 0.3;
+      border-radius: 50%;
+      animation: fall 8s linear infinite;
+    }
+
+    .petals div:nth-child(1) {
+      left: 20%;
+      animation-delay: 0s;
+    }
+
+    .petals div:nth-child(2) {
+      left: 40%;
+      animation-delay: 2s;
+    }
+
+    .petals div:nth-child(3) {
+      left: 60%;
+      animation-delay: 4s;
+    }
+
+    .petals div:nth-child(4) {
+      left: 80%;
+      animation-delay: 6s;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.1;
+      }
+    }
+
+    .clouds {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .cloud {
+      position: absolute;
+      width: 200px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 100px;
+      animation: drift 40s linear infinite;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: '';
+      position: absolute;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+    }
+
+    .cloud::before {
+      width: 80px;
+      height: 80px;
+      top: -40px;
+      left: 40px;
+    }
+
+    .cloud::after {
+      width: 60px;
+      height: 60px;
+      top: -20px;
+      left: 100px;
+    }
+
+    .clouds div:nth-child(1) {
+      top: 20%;
+      animation-delay: 0s;
+    }
+
+    .clouds div:nth-child(2) {
+      top: 40%;
+      animation-delay: 20s;
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translateX(-20vw);
+        opacity: 0.2;
+      }
+      100% {
+        transform: translateX(120vw);
+        opacity: 0.2;
+      }
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -3;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #a67c00;
+      border-radius: 50%;
+      animation: glow 5s ease-in-out infinite;
+    }
+
+    .particles div:nth-child(1) {
+      left: 15%;
+      top: 30%;
+      animation-delay: 0s;
+    }
+
+    .particles div:nth-child(2) {
+      left: 35%;
+      top: 50%;
+      animation-delay: 1s;
+    }
+
+    .particles div:nth-child(3) {
+      left: 65%;
+      top: 25%;
+      animation-delay: 2s;
+    }
+
+    .particles div:nth-child(4) {
+      left: 85%;
+      top: 60%;
+      animation-delay: 3s;
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      50% {
+        opacity: 0.3;
+        transform: scale(1.5);
+      }
+    }
+
+    .dropdown-menu {
+      display: none;
+    }
+
+    .dropdown-menu.active {
+      display: block;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #f5e8c7;
+      padding: 20px;
+      border: 2px solid #8b5a2b;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      color: #4a3728;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .content p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .content ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    .content ul li {
+      margin-bottom: 10px;
+    }
+
+    .content ul li a {
+      color: #8b5a2b;
+      transition: color 0.3s ease;
+    }
+
+    .content ul li a:hover {
+      color: #a67c00;
+    }
+  </style>
+</head>
+<body>
+  <div class="petals">
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+  </div>
+  <div class="clouds">
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+  </div>
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+  <nav class="nav-bg text-white p-6 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold tracking-wide">Mahabharata</h1>
+      <div class="relative">
+        <button id="dropdown-toggle" class="flex items-center text-lg hover:text-yellow-300 transition duration-300 focus:outline-none">
+          <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+          </svg>
+          Menu
+        </button>
+        <ul id="dropdown-menu" class="dropdown-menu absolute right-0 mt-2 w-48 bg-yellow-100 text-gray-800 rounded-lg shadow-lg z-50">
+          <li class="border-b border-yellow-800">
+            <a href="index.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l10 10h-6v8h-8v-8H2L12 2z"/>
+              </svg>
+              Home
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="crossword.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M5 3h14v14h-5v5H5v-5H0V3h5zm2 2v10h10V5H7zm2 2h6v6H9V7z"/>
+              </svg>
+              Crossword
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="history.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-7 17h2v-2a8 8 0 0 1 10-7.46V13h2V9.54A10 10 0 0 0 12 2zm0 2a1 1 0 0 1 1 1v5h3l-4 4-4-4h3V5a1 1 0 0 1 1-1z"/>
+              </svg>
+              Learn History
+            </a>
+          </li>
+          <li class="border-b border-yellow-800 dropdown">
+            <a href="#" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-7 17h2v-2a8 8 0 0 1 10-7.46V13h2V9.54A10 10 0 0 0 12 2zm0 2a1 1 0 0 1 1 1v5h3l-4 4-4-4h3V5a1 1 0 0 1 1-1z"/>
+              </svg>
+              History Topics
+            </a>
+            <ul class="ml-4 border-l border-yellow-800">
+              <li><a href="pandavas.html" class="block px-4 py-2 hover:bg-yellow-200 transition duration-300">The Birth of the Pandavas</a></li>
+              <li><a href="dice.html" class="block px-4 py-2 hover:bg-yellow-200 transition duration-300">The Game of Dice</a></li>
+              <li><a href="war.html" class="block px-4 py-2 hover:bg-yellow-200 transition duration-300">The Kurukshetra War</a></li>
+              <li><a href="exile.html" class="block px-4 py-2 hover:bg-yellow-200 transition duration-300">The Exile of the Pandavas</a></li>
+            </ul>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="gita.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 3v6l5 3-1 2-6-3V7h2z"/>
+              </svg>
+              Listen to Gita
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="content">
+    <h1>Learn the History of the Mahabharata</h1>
+    <p>
+      The Mahabharata is one of the two major Sanskrit epics of ancient India, the other being the Ramayana. Traditionally dated to around 1200 BCE, it narrates the struggle between two groups of cousins, the Kauravas and the Pandavas, for the throne of Hastinapur. The epic is not just a story of war but a profound exploration of dharma (duty), morality, and human emotions.
+    </p>
+    <p>
+      Written by the sage Vyasa, the Mahabharata is a vast text, consisting of over 100,000 shlokas (verses), making it one of the longest epic poems in the world. It includes the Bhagavad Gita, a sacred dialogue between Lord Krishna and the warrior Arjuna, which takes place on the battlefield of Kurukshetra just before the great war begins.
+    </p>
+    <p>
+      Dive deeper into key events of the Mahabharata by exploring the following stories:
+    </p>
+    <ul>
+      <li><a href="pandavas.html">The Birth of the Pandavas</a> - Learn about the origins of the five Pandava brothers and their divine lineage.</li>
+      <li><a href="dice.html">The Game of Dice</a> - Discover the pivotal event that led to the Pandavas' exile and set the stage for the war.</li>
+      <li><a href="war.html">The Kurukshetra War</a> - Explore the epic 18-day battle that changed the course of history.</li>
+      <li><a href="exile.html">The Exile of the Pandavas</a> - Read about the challenges the Pandavas faced during their 13 years in exile.</li>
+    </ul>
+    <p>
+      The Mahabharata is not just a tale of conflict but a timeless guide to life’s moral dilemmas, offering lessons that resonate even today, on June 12, 2025.
+    </p>
+  </div>
+  <script>
+    // Dropdown menu toggle
+    const dropdownToggle = document.getElementById('dropdown-toggle');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+
+    dropdownToggle.addEventListener('click', () => {
+      dropdownMenu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

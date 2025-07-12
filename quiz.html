@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahabharata Quiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #f4e4bc, #d9c2a6);
+      font-family: 'Cinzel', serif;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 15rem;
+      color: rgba(139, 90, 43, 0.1);
+      pointer-events: none;
+      z-index: -1;
+      font-family: 'Cinzel', serif;
+    }
+    h1 {
+      margin-top: 20px;
+      font-size: 2.5rem;
+      color: #4a3728;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    .nav-bg {
+      background: linear-gradient(to right, #8b5a2b, #a67c00);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-button {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-size: 1.125rem;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border-radius: 4px;
+    }
+    .dropdown-button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f5e8c7;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      border-radius: 4px;
+      right: 0;
+    }
+    .dropdown-content a {
+      color: #4a3728;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
+    .dropdown-content a:hover {
+      background-color: #e8d7a6;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    .quiz-card {
+      background: #f5e8c7;
+      border: 2px solid #8b5a2b;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .quiz-card h3 {
+      font-size: 1.25rem;
+      color: #4a3728;
+      margin-bottom: 15px;
+    }
+    .quiz-card label {
+      display: block;
+      font-size: 1rem;
+      color: #4a3728;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .quiz-card input[type="radio"] {
+      margin-right: 10px;
+    }
+    .submit-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 30px;
+      background: linear-gradient(to right, #8b5a2b, #a67c00);
+      color: white;
+      font-size: 1.125rem;
+      font-family: 'Cinzel', serif;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .submit-btn:hover {
+      background: linear-gradient(to right, #a67c00, #8b5a2b);
+    }
+    #results {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      padding: 20px;
+      background: #f5e8c7;
+      border: 2px solid #8b5a2b;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      display: none;
+    }
+    #results h3 {
+      font-size: 1.5rem;
+      color: #4a3728;
+      margin-bottom: 15px;
+    }
+    #results p {
+      font-size: 1rem;
+      color: #4a3728;
+      margin-bottom: 10px;
+    }
+    #results .correct {
+      color: #2e7d32;
+    }
+    #results .incorrect {
+      color: #d32f2f;
+    }
+    @media (max-width: 768px) {
+      .quiz-container {
+        margin: 20px;
+        padding: 15px;
+      }
+      .quiz-card {
+        padding: 15px;
+      }
+      .quiz-card h3 {
+        font-size: 1.1rem;
+      }
+      .quiz-card label {
+        font-size: 0.9rem;
+      }
+      .submit-btn {
+        font-size: 1rem;
+        padding: 8px 20px;
+      }
+      #results {
+        margin: 0 20px 20px;
+        padding: 15px;
+      }
+      #results h3 {
+        font-size: 1.25rem;
+      }
+      #results p {
+        font-size: 0.9rem;
+      }
+      .dropdown-button {
+        font-size: 1rem;
+        padding: 6px 12px;
+      }
+      .dropdown-content {
+        min-width: 160px;
+      }
+      .dropdown-content a {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="watermark">ॐ</div>
+  <nav class="nav-bg text-white p-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold tracking-wide">Mahabharata</h1>
+      <div class="dropdown">
+        <div class="dropdown-button">
+          <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+          </svg>
+          Menu
+        </div>
+        <div class="dropdown-content">
+          <a href="index.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l10 10h-6v8h-8v-8H2L12 2z"/>
+            </svg>
+            Home
+          </a>
+          <a href="crossword.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M5 3h14v14h-5v5H5v-5H0V3h5zm2 2v10h10V5H7zm2 2h6v6H9V7z"/>
+            </svg>
+            Crossword
+          </a>
+          <a href="history.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-7 17h2v-2a8 8 0 0 1 10-7.46V13h2V9.54A10 10 0 0 0 12 2zm0 2a1 1 0 0 1 1 1v5h3l-4 4-4-4h3V5a1 1 0 0 1 1-1z"/>
+            </svg>
+            Learn History
+          </a>
+          <a href="gita.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 3v6l5 3-1 2-6-3V7h2z"/>
+            </svg>
+            Bhagavad Gita
+          </a>
+          <a href="map.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-14v4h-4v2h4v4h2v-4h4v-2h-4V6h-2z"/>
+            </svg>
+            Interactive Map
+          </a>
+          <a href="quiz.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-14v4h-4v2h4v4h2v-4h4v-2h-4V6h-2z"/>
+            </svg>
+            Quiz
+          </a>
+          <a href="mythology.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-14v4h-4v2h4v4h2v-4h4v-2h-4V6h-2z"/>
+            </svg>
+            Mythology vs. History
+          </a>
+          <a href="timeline.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-14v4h-4v2h4v4h2v-4h4v-2h-4V6h-2z"/>
+            </svg>
+            Timeline
+          </a>
+          <a href="war-timeline.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-14v4h-4v2h4v4h2v-4h4v-2h-4V6h-2z"/>
+            </svg>
+            War Timeline
+          </a>
+          <a href="characters.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-14v4h-4v2h4v4h2v-4h4v-2h-4V6h-2z"/>
+            </svg>
+            Characters
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <h1>Mahabharata Quiz</h1>
+  <div class="quiz-container" id="quiz-container">
+    <!-- Questions will be dynamically inserted here -->
+  </div>
+  <button class="submit-btn" onclick="calculateScore()">Submit</button>
+  <div id="results">
+    <h3>Your Results</h3>
+    <div id="score"></div>
+    <div id="feedback"></div>
+  </div>
+  <script>
+    const questions = {
+      easy: [
+        {
+          question: "Who was the eldest Pandava?",
+          options: ["Arjuna", "Bhima", "Yudhishthira", "Nakula"],
+          answer: "c",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, the eldest Pandava was Yudhishthira." }
+        },
+        {
+          question: "What was the name of the war fought between the Pandavas and Kauravas?",
+          options: ["Battle of Panipat", "Kurukshetra War", "Battle of Plassey", "Kalinga War"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, the war was the Kurukshetra War." }
+        },
+        {
+          question: "Who delivered the Bhagavad Gita to Arjuna?",
+          options: ["Bhishma", "Drona", "Krishna", "Vyasa"],
+          answer: "c",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Krishna delivered the Bhagavad Gita." }
+        },
+        {
+          question: "Draupadi was the wife of all five Pandavas. (True/False)",
+          options: ["True", "False"],
+          answer: "true",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Draupadi was indeed the wife of all five Pandavas." }
+        },
+        {
+          question: "Karna was the youngest Pandava. (True/False)",
+          options: ["True", "False"],
+          answer: "false",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Karna was not a Pandava; he was their rival." }
+        },
+        {
+          question: "Who was the father of the Kauravas?",
+          options: ["Pandu", "Dhritarashtra", "Vyasa", "Drupada"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Dhritarashtra was the father of the Kauravas." }
+        },
+        {
+          question: "Who was the mother of the Pandavas?",
+          options: ["Gandhari", "Kunti", "Madri", "Draupadi"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Kunti was the mother of the Pandavas (along with Madri for Nakula and Sahadeva)." }
+        },
+        {
+          question: "Krishna was Arjuna’s charioteer during the Kurukshetra War. (True/False)",
+          options: ["True", "False"],
+          answer: "true",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Krishna was indeed Arjuna’s charioteer." }
+        },
+        {
+          question: "Who was the leader of the Kauravas?",
+          options: ["Duryodhana", "Yudhishthira", "Arjuna", "Bhima"],
+          answer: "a",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Duryodhana was the leader of the Kauravas." }
+        },
+        {
+          question: "The Mahabharata is an epic written by Vyasa. (True/False)",
+          options: ["True", "False"],
+          answer: "true",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, the Mahabharata was traditionally composed by Vyasa." }
+        },
+        {
+          question: "Who was Draupadi’s father?",
+          options: ["Drupada", "Dhritarashtra", "Shakuni", "Pandu"],
+          answer: "a",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Draupadi’s father was Drupada, the king of Panchala." }
+        },
+        {
+          question: "Bhima was known for his skill with which weapon?",
+          options: ["Bow and Arrow", "Mace", "Sword", "Spear"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Bhima was renowned for his skill with the mace." }
+        },
+        {
+          question: "Arjuna won Draupadi in a swayamvara. (True/False)",
+          options: ["True", "False"],
+          answer: "true",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Arjuna won Draupadi by hitting the target in her swayamvara." }
+        },
+        {
+          question: "Who was the blind king of Hastinapura?",
+          options: ["Pandu", "Dhritarashtra", "Duryodhana", "Vidura"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Dhritarashtra was the blind king of Hastinapura." }
+        },
+        {
+          question: "The Pandavas were exiled for how many years after the dice game?",
+          options: ["5 years", "12 years", "14 years", "20 years"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, the Pandavas were exiled for 12 years, plus 1 year in hiding." }
+        }
+      ],
+      medium: [
+        {
+          question: "Who killed Duryodhana in the Kurukshetra War?",
+          options: ["Arjuna", "Bhima", "Yudhishthira", "Krishna"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Bhima killed Duryodhana in a mace fight on the last day of the war." }
+        },
+        {
+          question: "What was the name of Bhima’s son who fought in the Kurukshetra War?",
+          options: ["Abhimanyu", "Ghatotkacha", "Prativindhya", "Sutasoma"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Ghatotkacha, Bhima’s son with Hidimbi, fought in the war." }
+        },
+        {
+          question: "Shakuni was the brother of which character?",
+          options: ["Kunti", "Gandhari", "Madri", "Draupadi"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Shakuni was Gandhari’s brother." }
+        },
+        {
+          question: "Who was the guru of both the Pandavas and Kauravas?",
+          options: ["Bhishma", "Drona", "Kripa", "Vyasa"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Drona was the guru who trained both the Pandavas and Kauravas." }
+        },
+        {
+          question: "Karna was the son of which god?",
+          options: ["Indra", "Surya", "Vayu", "Yama"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Karna was the son of Surya, the sun god." }
+        },
+        {
+          question: "Abhimanyu was killed in which battle formation?",
+          options: ["Chakravyuha", "Garuda Vyuh", "Mandala Vyuh", "Shakata Vyuh"],
+          answer: "a",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Abhimanyu was killed in the Chakravyuha formation." }
+        },
+        {
+          question: "Who was the mother of Nakula and Sahadeva?",
+          options: ["Kunti", "Gandhari", "Madri", "Draupadi"],
+          answer: "c",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Madri was the mother of Nakula and Sahadeva." }
+        },
+        {
+          question: "Bhishma was the son of which river goddess?",
+          options: ["Yamuna", "Ganga", "Sarasvati", "Kaveri"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Bhishma was the son of Ganga and Shantanu." }
+        },
+        {
+          question: "Drona was killed by which Pandava ally?",
+          options: ["Dhrishtadyumna", "Shikhandi", "Satyaki", "Virata"],
+          answer: "a",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Drona was killed by Dhrishtadyumna, Draupadi’s brother." }
+        },
+        {
+          question: "The dice game was rigged by which character?",
+          options: ["Duryodhana", "Shakuni", "Karna", "Dushasana"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Shakuni rigged the dice game to ensure the Pandavas’ loss." }
+        },
+        {
+          question: "Who was the father of Abhimanyu?",
+          options: ["Bhima", "Arjuna", "Yudhishthira", "Nakula"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Abhimanyu was the son of Arjuna and Subhadra." }
+        },
+        {
+          question: "Eklavya gave his thumb to which guru?",
+          options: ["Drona", "Kripa", "Bhishma", "Parashurama"],
+          answer: "a",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Eklavya gave his thumb to Drona as guru-dakshina." }
+        },
+        {
+          question: "Ashwatthama was the son of which character?",
+          options: ["Bhishma", "Drona", "Karna", "Shakuni"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Ashwatthama was the son of Drona." }
+        },
+        {
+          question: "Krishna belonged to which clan?",
+          options: ["Kuru", "Yadava", "Panchala", "Magadha"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Krishna was a member of the Yadava clan." }
+        },
+        {
+          question: "The Kurukshetra War lasted for how many days?",
+          options: ["10 days", "18 days", "30 days", "100 days"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, the Kurukshetra War lasted for 18 days." }
+        }
+      ],
+      hard: [
+        {
+          question: "On which day of the Kurukshetra War did Bhishma fall?",
+          options: ["Day 5", "Day 10", "Day 15", "Day 18"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Bhishma fell on the 10th day of the Kurukshetra War." }
+        },
+        {
+          question: "Who killed Ghatotkacha during the Kurukshetra War?",
+          options: ["Karna", "Drona", "Ashwatthama", "Duryodhana"],
+          answer: "a",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Karna killed Ghatotkacha using the Shakti weapon." }
+        },
+        {
+          question: "Shikhandi was the reincarnation of which character?",
+          options: ["Amba", "Ambika", "Ambalika", "Subhadra"],
+          answer: "a",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Shikhandi was the reincarnation of Amba, who sought revenge on Bhishma." }
+        },
+        {
+          question: "What was the name of Karna’s divine weapon given by Indra?",
+          options: ["Brahmastra", "Shakti", "Pashupatastra", "Narayanastra"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Karna received the Shakti weapon from Indra, which he used to kill Ghatotkacha." }
+        },
+        {
+          question: "Who killed Shakuni during the Kurukshetra War?",
+          options: ["Arjuna", "Bhima", "Sahadeva", "Yudhishthira"],
+          answer: "c",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Sahadeva killed Shakuni on the last day of the war." }
+        },
+        {
+          question: "What was the name of the forest where the Pandavas spent most of their exile?",
+          options: ["Dandaka", "Kamyaka", "Naimisha", "Chitrakuta"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, the Pandavas spent most of their exile in the Kamyaka forest." }
+        },
+        {
+          question: "Vidura was the incarnation of which deity?",
+          options: ["Indra", "Yama", "Varuna", "Agni"],
+          answer: "b",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Vidura was considered an incarnation of Yama, the god of dharma." }
+        },
+        {
+          question: "On which day was Karna killed in the Kurukshetra War?",
+          options: ["Day 12", "Day 14", "Day 16", "Day 17"],
+          answer: "d",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Karna was killed by Arjuna on the 17th day of the war." }
+        },
+        {
+          question: "What was the name of Draupadi’s brother who killed Drona?",
+          options: ["Dhrishtadyumna", "Shikhandi", "Satyaki", "Virata"],
+          answer: "a",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, Dhrishtadyumna, Draupadi’s brother, killed Drona." }
+        },
+        {
+          question: "What celestial event is said to have marked the start of the Kurukshetra War?",
+          options: ["Solar Eclipse", "Lunar Eclipse", "Meteor Shower", "Planetary Alignment"],
+          answer: "d",
+          feedback: { correct: "Correct!", incorrect: "Incorrect, a planetary alignment is traditionally said to have marked the start of the Kurukshetra War." }
+        }
+      ]
+    };
+
+    let selectedQuestions = [];
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function selectQuestions() {
+      // Select 2 easy, 2 medium, 1 hard
+      const easyQuestions = shuffleArray([...questions.easy]).slice(0, 2);
+      const mediumQuestions = shuffleArray([...questions.medium]).slice(0, 2);
+      const hardQuestions = shuffleArray([...questions.hard]).slice(0, 1);
+
+      selectedQuestions = [...easyQuestions, ...mediumQuestions, ...hardQuestions];
+      selectedQuestions = shuffleArray(selectedQuestions).map((q, index) => ({
+        ...q,
+        id: `q${index + 1}`
+      }));
+
+      renderQuiz();
+    }
+
+    function renderQuiz() {
+      const quizContainer = document.getElementById('quiz-container');
+      quizContainer.innerHTML = '';
+
+      selectedQuestions.forEach((q, index) => {
+        const card = document.createElement('div');
+        card.className = 'quiz-card';
+        card.innerHTML = `
+          <h3>${index + 1}. ${q.question}</h3>
+          ${q.options.map((option, i) => {
+            const value = q.options.length === 2 ? option.toLowerCase() : String.fromCharCode(97 + i);
+            return `
+              <label>
+                <input type="radio" name="${q.id}" value="${value}">
+                ${option}
+              </label>
+            `;
+          }).join('')}
+        `;
+        quizContainer.appendChild(card);
+      });
+    }
+
+    function calculateScore() {
+      let score = 0;
+      let feedbackHtml = '';
+
+      selectedQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+        if (selected) {
+          const userAnswer = selected.value;
+          if (userAnswer === q.answer) {
+            score++;
+            feedbackHtml += `<p class="correct">Question ${index + 1}: ${q.feedback.correct}</p>`;
+          } else {
+            feedbackHtml += `<p class="incorrect">Question ${index + 1}: ${q.feedback.incorrect}</p>`;
+          }
+        } else {
+          feedbackHtml += `<p class="incorrect">Question ${index + 1}: Not answered.</p>`;
+        }
+      });
+
+      document.getElementById('score').innerHTML = `<p>Your Score: ${score}/5</p>`;
+      document.getElementById('feedback').innerHTML = feedbackHtml;
+      document.getElementById('results').style.display = 'block';
+
+      // Scroll to results
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Load the quiz when the page loads
+    window.onload = selectQuestions;
+  </script>
+</body>
+</html>

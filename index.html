@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahabharata - Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cinzel', serif;
+      position: relative;
+      overflow-x: hidden;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #f0dca8, #ceb08a);
+      background-image: url('images/main img.avif');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      opacity: 0.2;
+      z-index: -1;
+    }
+
+    .petals {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .petal {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #f4e4bc;
+      opacity: 0.3;
+      border-radius: 50%;
+      animation: fall 8s linear infinite;
+    }
+
+    .petals div:nth-child(1) {
+      left: 20%;
+      animation-delay: 0s;
+    }
+
+    .petals div:nth-child(2) {
+      left: 40%;
+      animation-delay: 2s;
+    }
+
+    .petals div:nth-child(3) {
+      left: 60%;
+      animation-delay: 4s;
+    }
+
+    .petals div:nth-child(4) {
+      left: 80%;
+      animation-delay: 6s;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.1;
+      }
+    }
+
+    .nav-bg {
+      background: linear-gradient(to right, #8b5a2b, #a67c00);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .card {
+      background: #f5e8c7;
+      border: 2px solid #6a431f;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .header {
+      background-image: url('https://via.placeholder.com/1200x600?text=Ancient+Monument+Banner');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .dropdown-menu {
+      display: none;
+    }
+
+    .dropdown-menu.active {
+      display: block;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header h2 {
+      color: rgba(51, 51, 51, 0.8); /* Darker color with transparency */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional: enhance readability */
+    }
+
+    .content p {
+      color: rgba(51, 51, 51, 0.8); /* Darker color with transparency for subheading */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Optional: enhance readability */
+    }
+  </style>
+</head>
+<body>
+  <div class="petals">
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+  </div>
+  <nav class="nav-bg text-white p-6 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold tracking-wide">Mahabharata</h1>
+      <div class="relative">
+        <button id="dropdown-toggle" class="flex items-center text-lg hover:text-yellow-300 transition duration-300 focus:outline-none">
+          <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+          </svg>
+          Menu
+        </button>
+        <ul id="dropdown-menu" class="dropdown-menu absolute right-0 mt-2 w-48 bg-yellow-100 text-gray-800 rounded-lg shadow-lg z-50">
+          <li class="border-b border-yellow-800">
+            <a href="index.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l10 10h-6v8h-8v-8H2L12 2z"/>
+              </svg>
+              Home
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="crossword.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M5 3h14v14h-5v5H5v-5H0V3h5zm2 2v10h10V5H7zm2 2h6v6H9V7z"/>
+              </svg>
+              Crossword
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="history.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-7 17h2v-2a8 8 0 0 1 10-7.46V13h2V9.54A10 10 0 0 0 12 2zm0 2a1 1 0 0 1 1 1v5h3l-4 4-4-4h3V5a1 1 0 0 1 1-1z"/>
+              </svg>
+              Learn History
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="gita.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 3v6l5 3-1 2-6-3V7h2z"/>
+              </svg>
+              Gita Verse Explorer
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="map.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-10 10c0 5.5 4.5 10 10 10s10-4.5 10-10A10 10 0 0 0 12 20zm0 2c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8zm0 2a1 1 0 0 0-1 1v4l3 2 1-1-3-2V7a1 1 0 0 0-1-1z"/>
+              </svg>
+              Interactive Map
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="quiz.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm1 3h-2v2h2V7zm0 4h-2v6h2v-6z"/>
+              </svg>
+              Quiz
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="mythology.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-10 10c0 5.5 4.5 10 10 10s10-4.5 10-10A10 10 0 0 0 12 2zm0 2c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8zm0 2a1 1 0 0 0-1 1v4h4v-4a1 1 0 0 0-1-1z"/>
+              </svg>
+              Mythology vs. History
+            </a>
+          </li>
+          <li class="border-b border-yellow-800">
+            <a href="timeline.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-10 10c0 5.5 4.5 10 10 10s10-4.5 10-10A10 10 0 0 0 12 2zm0 2c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8zm0 2v4h4v2h-4v4h-2v-4H6v-2h4V6h2z"/>
+              </svg>
+              Timeline
+            </a>
+          </li>
+          <li>
+            <a href="characters.html" class="flex items-center px-4 py-2 hover:bg-yellow-200 transition duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 0 0-10 10c0 5.5 4.5 10 10 10s10-4.5 10-10A10 10 0 0 0 12 2zm0 2c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8zm0 2a3 3 0 0 0-3 3c0 1.7 1.3 3 3 3s3-1.3 3-3-1.3-3-3-3zm0 8c-2.2 0-4 1.8-4 4h8c0-2.2-1.8-4-4-4z"/>
+              </svg>
+              Characters
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header h-64 flex items-center justify-center mb-8">
+    <h2 class="text-5xl font-bold drop-shadow-lg">Explore the Epic of Mahabharata</h2>
+  </header>
+  <div class="container mx-auto p-8 content">
+    <p class="text-xl text-center mb-8 italic">Journey through ancient tales, puzzles, and sacred verses.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <a href="crossword.html" class="card p-6 rounded-lg text-center">
+        <div class="h-32 mb-4">
+          <img src="https://via.placeholder.com/300x200?text=Crossword" alt="Crossword" class="w-full h-full object-cover rounded">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Play Crossword</h3>
+        <p class="text-gray-600">Test your knowledge with interactive puzzles.</p>
+      </a>
+      <a href="history.html" class="card p-6 rounded-lg text-center">
+        <div class="h-32 mb-4">
+          <img src="https://via.placeholder.com/300x200?text=History" alt="History" class="w-full h-full object-cover rounded">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Learn History</h3>
+        <p class="text-gray-600">Discover epic stories and legends.</p>
+      </a>
+      <a href="gita.html" class="card p-6 rounded-lg text-center">
+        <div class="h-32 mb-4">
+          <img src="https://via.placeholder.com/300x200?text=Bhagavad+Gita" alt="Bhagavad Gita" class="w-full h-full object-cover rounded">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Gita Verse Explorer</h3>
+        <p class="text-gray-600">Explore sacred verses with audio and commentary.</p>
+      </a>
+      <a href="map.html" class="card p-6 rounded-lg text-center">
+        <div class="h-32 mb-4">
+          <img src="https://via.placeholder.com/300x200?text=Map" alt="Map" class="w-full h-full object-cover rounded">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Interactive Map</h3>
+        <p class="text-gray-600">Explore key locations like Hastinapura and Kurukshetra.</p>
+      </a>
+      <a href="quiz.html" class="card p-6 rounded-lg text-center">
+        <div class="h-32 mb-4">
+          <img src="https://via.placeholder.com/300x200?text=Quiz" alt="Quiz" class="w-full h-full object-cover rounded">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Quiz</h3>
+        <p class="text-gray-600">Test your Mahabharata knowledge with fun questions.</p>
+      </a>
+      <a href="mythology.html" class="card p-6 rounded-lg text-center">
+        <div class="h-32 mb-4">
+          <img src="https://via.placeholder.com/300x200?text=Mythology" alt="Mythology" class="w-full h-full object-cover rounded">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Mythology vs. History</h3>
+        <p class="text-gray-600">Explore the epic’s historical and mythological aspects.</p>
+      </a>
+      <a href="timeline.html" class="card p-6 rounded-lg text-center">
+        <div class="h-32 mb-4">
+          <img src="https://via.placeholder.com/300x200?text=Timeline" alt="Timeline" class="w-full h-full object-cover rounded">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Timeline</h3>
+        <p class="text-gray-600">Visualize the chronology of Mahabharata events.</p>
+      </a>
+      <a href="characters.html" class="card p-6 rounded-lg text-center">
+        <div class="h-32 mb-4">
+          <img src="https://via.placeholder.com/300x200?text=Characters" alt="Characters" class="w-full h-full object-cover rounded">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Character Profiles</h3>
+        <p class="text-gray-600">Learn about key figures like Arjuna and Krishna.</p>
+      </a>
+    </div>
+  </div>
+  <script>
+    const dropdownToggle = document.getElementById('dropdown-toggle');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+
+    dropdownToggle.addEventListener('click', () => {
+      dropdownMenu.classList.toggle('active');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

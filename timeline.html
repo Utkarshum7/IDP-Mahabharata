@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahabharata Timeline</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #f4e4bc, #d9c2a6);
+      background-image: url('images/main img.avif');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: 'Cinzel', serif;
+      min-height: 100vh;
+      margin: 0;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      opacity: 0.2;
+      z-index: -1;
+    }
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 15rem;
+      color: rgba(139, 90, 43, 0.1);
+      pointer-events: none;
+      z-index: -1;
+      font-family: 'Cinzel', serif;
+    }
+    h1 {
+      margin-top: 20px;
+      font-size: 2.5rem;
+      color: #4a3728;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      z-index: 10;
+      position: relative;
+    }
+    .nav-bg {
+      background: linear-gradient(to right, #8b5a2b, #a67c00);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-button {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-size: 1.125rem;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border-radius: 4px;
+    }
+    .dropdown-button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f5e8c7;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 60;
+      border-radius: 4px;
+      right: 0;
+    }
+    .dropdown-content a {
+      color: #4a3728;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
+    .dropdown-content a:hover {
+      background-color: #e8d7a6;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .timeline-container {
+      position: relative;
+      padding: 40px 0;
+      margin: 40px auto;
+      max-width: 1200px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #8b5a2b #f5e8c7;
+      z-index: 10;
+    }
+    .timeline-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    .timeline-container::-webkit-scrollbar-track {
+      background: #f5e8c7;
+    }
+    .timeline-container::-webkit-scrollbar-thumb {
+      background: #8b5a2b;
+      border-radius: 4px;
+    }
+    .timeline {
+      display: flex;
+      align-items: center;
+      position: relative;
+      min-width: max-content;
+      padding: 0 20px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #8b5a2b;
+      z-index: 1;
+    }
+    .timeline-event {
+      position: relative;
+      width: 250px;
+      margin: 0 20px;
+      text-align: center;
+      z-index: 2;
+    }
+    .event-dot {
+      width: 16px;
+      height: 16px;
+      background: #a67c00;
+      border: 2px solid #8b5a2b;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+    .event-card {
+      background: #f5e8c7;
+      border: 2px solid #8b5a2b;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      top: 40px;
+      z-index: 3;
+    }
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+    .event-card:hover .event-details {
+      display: block;
+    }
+    .event-date {
+      font-size: 1.1rem;
+      color: #4a3728;
+      font-weight: bold;
+    }
+    .event-title {
+      font-size: 1rem;
+      color: #4a3728;
+      margin: 5px 0;
+    }
+    .event-image {
+      width: 100%;
+      height: 120px;
+      border-radius: 4px;
+      margin: 10px 0;
+      object-fit: cover;
+    }
+    .event-details {
+      display: none;
+      font-size: 0.9rem;
+      color: #4a3728;
+      margin-top: 10px;
+      text-align: left;
+    }
+    @media (max-width: 768px) {
+      .timeline-event {
+        width: 200px;
+        margin: 0 10px;
+      }
+      .event-card {
+        padding: 10px;
+      }
+      .event-date {
+        font-size: 1rem;
+      }
+      .event-title {
+        font-size: 0.9rem;
+      }
+      .event-details {
+        font-size: 0.8rem;
+      }
+      .event-image {
+        height: 100px;
+      }
+      .dropdown-button {
+        font-size: 1rem;
+        padding: 6px 12px;
+      }
+      .dropdown-content {
+        min-width: 160px;
+      }
+      .dropdown-content a {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="watermark">ॐ</div>
+  <nav class="nav-bg text-white p-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold tracking-wide">Mahabharata</h1>
+      <div class="dropdown">
+        <div class="dropdown-button">
+          <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+          </svg>
+          Menu
+        </div>
+        <div class="dropdown-content">
+          <a href="index.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l10 10h-6v8h-8v-8H2L12 2z"/>
+            </svg>
+            Home
+          </a>
+          <a href="crossword.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M5 3h14v14h-5v5H5v-5H0V3h5zm2 2v10h10V5H7zm2 2h6v6H9V7z"/>
+            </svg>
+            Crossword
+          </a>
+          <a href="history.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-7 17h2v-2a8 8 0 0 1 10-7.46V13h2V9.54A10 10 0 0 0 12 2zm0 2a1 1 0 0 1 1 1v5h3l-4 4-4-4h3V5a1 1 0 0 1 1-1z"/>
+            </svg>
+            Learn History
+          </a>
+          <a href="gita.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 3v6l5 3-1 2-6-3V7h2z"/>
+            </svg>
+            Bhagavad Gita
+          </a>
+          <a href="map.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-14v4h-4v2h4v4h2v-4h4v-2h-4V6h-2z"/>
+            </svg>
+            Interactive Map
+          </a>
+          <a href="quiz.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-14v4h-4v2h4v4h2v-4h4v-2h-4V6h-2z"/>
+            </svg>
+            Quiz
+          </a>
+          <a href="mythology.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-14v4h-4v2h4v4h2v-4h4v-2h-4V6h-2z"/>
+            </svg>
+            Mythology vs. History
+          </a>
+          <a href="timeline.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-14v4h-4v2h4v4h2v-4h4v-2h-4V6h-2z"/>
+            </svg>
+            Timeline
+          </a>
+          <a href="war-timeline.html" class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-14v4h-4v2h4v4h2v-4h4v-2h-4V6h-2z"/>
+            </svg>
+            War Timeline
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <h1>Mahabharata Timeline</h1>
+  <div class="timeline-container">
+    <div class="timeline">
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">Circa 5600 BCE</div>
+          <div class="event-title">Birth of Pandu and Dhritarashtra</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            King Vichitravirya dies without heirs. Satyavati calls upon Vyasa to father children with Vichitravirya’s widows, Ambika and Ambalika. Dhritarashtra, born blind, and Pandu, born pale, are raised as princes of Hastinapura, setting the stage for the Kuru dynasty’s succession disputes.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">Circa 5580 BCE</div>
+          <div class="event-title">Birth of the Pandavas and Kauravas</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            Pandu, cursed to die if he engages in intimacy, retires to the forest. Kunti uses a boon to invoke gods, giving birth to Yudhishthira, Bhima, and Arjuna. Madri bears Nakula and Sahadeva. Meanwhile, Dhritarashtra’s wife Gandhari gives birth to 100 sons, the Kauravas, led by Duryodhana.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">Circa 5570 BCE</div>
+          <div class="event-title">Pandu’s Death</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            Pandu, overcome by desire, dies after embracing Madri, who immolates herself. Kunti returns to Hastinapura with the five Pandavas. The Pandavas and Kauravas grow up together under Bhishma’s care, but tensions arise due to Duryodhana’s jealousy and ambition.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">Circa 5565 BCE</div>
+          <div class="event-title">Training Under Drona</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            The Pandavas and Kauravas are trained by Guru Drona in warfare and archery. Arjuna excels, earning Drona’s favor and the divine bow Gandiva. Drona demands Ekalavya’s thumb as guru-dakshina to ensure Arjuna’s supremacy, highlighting the intense rivalry among the cousins.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">Circa 5563 BCE</div>
+          <div class="event-title">Draupadi’s Swayamvara</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            Arjuna wins Draupadi’s hand at her swayamvara by hitting a fish’s eye with an arrow. The Pandavas share Draupadi as their wife due to Kunti’s command. This event angers the Kauravas, particularly Duryodhana, escalating tensions between the two families.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">Circa 5562 BCE</div>
+          <div class="event-title">Game of Dice</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            Duryodhana, with Shakuni’s help, invites Yudhishthira to a rigged dice game. Yudhishthira loses his kingdom, brothers, and Draupadi. Draupadi’s humiliation in the Kaurava court, saved by Krishna’s intervention, fuels the Pandavas’ resolve for revenge.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">Circa 5562–5549 BCE</div>
+          <div class="event-title">Pandavas’ Exile</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            The Pandavas, with Draupadi, are exiled for 13 years (12 years in the forest and 1 year incognito). They face hardships, gain divine weapons, and form alliances with kings like Drupada and Virata, preparing for the inevitable war against the Kauravas.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">16 Oct 5561 BCE</div>
+          <div class="event-title">War Begins; Bhagavad Gita</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            The Kurukshetra War commences. Bhishma leads the Kauravas, causing heavy Pandava losses. Arjuna hesitates to fight, leading to Krishna’s recitation of the Bhagavad Gita, imparting spiritual wisdom and urging Arjuna to fulfill his Kshatriya duty.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">25 Oct 5561 BCE</div>
+          <div class="event-title">Bhishma Falls</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            Shikhandi, a reincarnation of Amba, faces Bhishma, who lowers his weapons due to his vow. Arjuna shoots countless arrows, felling Bhishma, who lies on a bed of arrows. The Kauravas are demoralized, and Drona takes command.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">28 Oct 5561 BCE</div>
+          <div class="event-title">Abhimanyu’s Death</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            Drona forms the Chakravyuha. Abhimanyu enters but is trapped and killed by multiple Kaurava warriors, including Drona, Karna, and Dushasana’s son, after Jayadratha blocks the Pandavas from aiding him. Arjuna vows revenge.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">29 Oct 5561 BCE</div>
+          <div class="event-title">Jayadratha Falls</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            Arjuna, enraged by Abhimanyu’s death, vows to kill Jayadratha before sunset. Krishna creates an illusion of sunset, allowing Arjuna to behead Jayadratha. The battle continues into the night, with Ghatotkacha killed by Karna’s Shakti weapon.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">30 Oct 5561 BCE</div>
+          <div class="event-title">Drona’s Death</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            Yudhishthira announces the death of an elephant named Ashwatthama, leading Drona to believe his son is dead. Drona drops his weapons, and Dhrishtadyumna beheads him, fulfilling his destiny as Drona’s slayer.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">1 Nov 5561 BCE</div>
+          <div class="event-title">Karna’s Death</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            Arjuna and Karna engage in a climactic duel. Karna’s chariot wheel gets stuck due to a curse. Urged by Krishna, Arjuna shoots Karna, killing him. The Kauravas are further demoralized, and Shalya becomes the new commander.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">2 Nov 5561 BCE</div>
+          <div class="event-title">Duryodhana’s Defeat; War Ends</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            Duryodhana hides in a lake but is found by the Pandavas. Bhima defeats him in a mace fight, breaking his thigh. Ashwatthama attacks the Pandava camp at night, killing Draupadi’s sons. The war ends with the Pandavas’ victory.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="event-dot"></div>
+        <div class="event-card">
+          <div class="event-date">Circa 5561 BCE</div>
+          <div class="event-title">Yudhishthira’s Coronation</div>
+          <img src="images/main img.avif" alt="Mahabharata Event" class="event-image">
+          <div class="event-details">
+            Yudhishthira is crowned king of Hastinapura. The Pandavas restore dharma, but the war’s immense loss leaves them reflective. Krishna advises them on governance, and the Mahabharata’s teachings continue through the ages.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Log to confirm content is loaded
+    console.log("Timeline page loaded. Timeline container:", document.querySelector('.timeline-container'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahabharata - The Kurukshetra War</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #f4e4bc, #d9c2a6);
+      font-family: 'Cinzel', serif;
+      position: relative;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    .nav-bg {
+      background: linear-gradient(to right, #8b5a2b, #a67c00);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    .petals {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .petal {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #f4e4bc;
+      opacity: 0.3;
+      border-radius: 50%;
+      animation: fall 8s linear infinite;
+    }
+    .petals div:nth-child(1) {
+      left: 20%;
+      animation-delay: 0s;
+    }
+    .petals div:nth-child(2) {
+      left: 40%;
+      animation-delay: 2s;
+    }
+    .petals div:nth-child(3) {
+      left: 60%;
+      animation-delay: 4s;
+    }
+    .petals div:nth-child(4) {
+      left: 80%;
+      animation-delay: 6s;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.1;
+      }
+    }
+    .clouds {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -2;
+    }
+    .cloud {
+      position: absolute;
+      width: 200px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 100px;
+      animation: drift 40s linear infinite;
+    }
+    .cloud::before,
+    .cloud::after {
+      content: '';
+      position: absolute;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+    }
+    .cloud::before {
+      width: 80px;
+      height: 80px;
+      top: -40px;
+      left: 40px;
+    }
+    .cloud::after {
+      width: 60px;
+      height: 60px;
+      top: -20px;
+      left: 100px;
+    }
+    .clouds div:nth-child(1) {
+      top: 20%;
+      animation-delay: 0s;
+    }
+    .clouds div:nth-child(2) {
+      top: 40%;
+      animation-delay: 20s;
+    }
+    @keyframes drift {
+      0% {
+        transform: translateX(-20vw);
+        opacity: 0.2;
+      }
+      100% {
+        transform: translateX(120vw);
+        opacity: 0.2;
+      }
+    }
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -3;
+    }
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #a67c00;
+      border-radius: 50%;
+      animation: glow 5s ease-in-out infinite;
+    }
+    .particles div:nth-child(1) {
+      left: 15%;
+      top: 30%;
+      animation-delay: 0s;
+    }
+    .particles div:nth-child(2) {
+      left: 35%;
+      top: 50%;
+      animation-delay: 1s;
+    }
+    .particles div:nth-child(3) {
+      left: 65%;
+      top: 25%;
+      animation-delay: 2s;
+    }
+    .particles div:nth-child(4) {
+      left: 85%;
+      top: 60%;
+      animation-delay: 3s;
+    }
+    @keyframes glow {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      50% {
+        opacity: 0.3;
+        transform: scale(1.5);
+      }
+    }
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: linear-gradient(to right, #8b5a2b, #a67c00);
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      border-radius: 5px;
+      top: 100%;
+      left: 0;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .dropdown-content a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      transition: background 0.3s ease;
+    }
+    .dropdown-content a:hover {
+      background: #a67c00;
+    }
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #f5e8c7;
+      padding: 20px;
+      border: 2px solid #8b5a2b;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      color: #4a3728;
+    }
+    .content h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .content p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .content ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+    .content ul li {
+      margin-bottom: 10px;
+    }
+    .content ul li a {
+      color: #8b5a2b;
+      transition: color 0.3s ease;
+    }
+    .content ul li a:hover {
+      color: #a67c00;
+    }
+  </style>
+</head>
+<body>
+  <div class="petals">
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+  </div>
+  <div class="clouds">
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+  </div>
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+  <nav class="nav-bg text-white p-6 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold tracking-wide">Mahabharata</h1>
+      <ul class="flex space-x-6 text-lg">
+        <li>
+          <a href="index.html" class="flex items-center hover:text-yellow-300 transition duration-300">
+            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l10 10h-6v8h-8v-8H2L12 2z"/>
+            </svg>
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="crossword.html" class="flex items-center hover:text-yellow-300 transition duration-300">
+            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M5 3h14v14h-5v5H5v-5H0V3h5zm2 2v10h10V5H7zm2 2h6v6H9V7z"/>
+            </svg>
+            Crossword
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="history.html" class="flex items-center hover:text-yellow-300 transition duration-300">
+            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-7 17h2v-2a8 8 0 0 1 10-7.46V13h2V9.54A10 10 0 0 0 12 2zm0 2a1 1 0 0 1 1 1v5h3l-4 4-4-4h3V5a1 1 0 0 1 1-1z"/>
+            </svg>
+            Learn History
+          </a>
+          <div class="dropdown-content">
+            <a href="pandavas.html">The Birth of the Pandavas</a>
+            <a href="dice.html">The Game of Dice</a>
+            <a href="war.html">The Kurukshetra War</a>
+            <a href="exile.html">The Exile of the Pandavas</a>
+          </div>
+        </li>
+        <li>
+          <a href="gita.html" class="flex items-center hover:text-yellow-300 transition duration-300">
+            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 3v6l5 3-1 2-6-3V7h2z"/>
+            </svg>
+            Listen to Gita
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="content">
+    <h1>The Kurukshetra War</h1>
+    <p>
+      The Kurukshetra War, the climax of the Mahabharata, was an 18-day battle fought on the plains of Kurukshetra between the Pandavas and the Kauravas. After years of enmity, culminating in the Pandavas’ exile and the failure of peace negotiations, the two sides gathered massive armies, with the Pandavas supported by allies like the Yadavas and the Kauravas backed by warriors like Bhishma and Drona.
+    </p>
+    <p>
+      On the first day, the armies clashed with great ferocity, following the rules of dharma in warfare. However, as the days progressed, the war became increasingly brutal. Key events included Bhishma’s fall on the tenth day, struck down by Arjuna with Shikhandi’s help; Drona’s death on the fifteenth day, deceived by Yudhishthira’s words; and Karna’s demise on the seventeenth day, killed by Arjuna while his chariot wheel was stuck. On the final day, Bhima defeated Duryodhana in a mace duel, fulfilling his vow to avenge Draupadi’s humiliation.
+    </p>
+    <p>
+      The war ended with the Pandavas’ victory, but at a great cost—millions perished, including most of the Kuru lineage. Yudhishthira became king, but the victory was bittersweet, leading to deep reflections on the nature of dharma and the cost of war, as captured in the Bhagavad Gita, spoken by Krishna to Arjuna before the battle began.
+    </p>
+    <p>
+      Reflecting on this epic conflict, the Kurukshetra War teaches us about the complexities of duty, the inevitability of conflict, and the pursuit of justice.
+    </p>
+    <p>
+      Explore more stories from the Mahabharata:
+    </p>
+    <ul>
+      <li><a href="pandavas.html">The Birth of the Pandavas</a> - Learn about the origins of the five Pandava brothers.</li>
+      <li><a href="dice.html">The Game of Dice</a> - Discover the pivotal event that led to the Pandavas' exile.</li>
+      <li><a href="exile.html">The Exile of the Pandavas</a> - Read about the challenges faced during their 13 years in exile.</li>
+    </ul>
+  </div>
+</body>
+</html>
