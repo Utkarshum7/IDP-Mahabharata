@@ -1,0 +1,23 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Node modules (if ever used)
+node_modules/
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# Environment files
+.env
+
+# Docker
+*.pid
+
+# Misc
+*.swp
+*~ 
